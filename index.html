@@ -1,0 +1,182 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações dos Carros e Manutenção</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <h1>Garagem Inteligente</h1>
+
+    <h2>Criar Veículos</h2>
+
+    <div class="creation-section">
+        <h3>Carro Base</h3>
+        <label for="modeloBase">Modelo:</label>
+        <input type="text" id="modeloBase">
+        <label for="corBase">Cor:</label>
+        <input type="text" id="corBase">
+        <button onclick="criarVeiculo('carro')">Criar Carro Base</button>
+        <p id="statusCarro">Carro base não criado.</p>
+    </div>
+
+
+    <div class="creation-section">
+        <h3>Carro Esportivo</h3>
+        <label for="modeloEsportivo">Modelo:</label>
+        <input type="text" id="modeloEsportivo">
+        <label for="corEsportivo">Cor:</label>
+        <input type="text" id="corEsportivo">
+        <button onclick="criarVeiculo('esportivo')">Criar Carro Esportivo</button>
+        <p id="statusEsportivo">Carro esportivo não criado.</p>
+    </div>
+
+
+    <div class="creation-section">
+        <h3>Caminhão</h3>
+        <label for="modeloCaminhao">Modelo:</label>
+        <input type="text" id="modeloCaminhao">
+        <label for="corCaminhao">Cor:</label>
+        <input type="text" id="corCaminhao">
+        <label for="capacidadeCaminhao">Capacidade (kg):</label>
+        <input type="number" id="capacidadeCaminhao">
+        <button onclick="criarVeiculo('caminhao')">Criar Caminhão</button>
+        <p id="statusCaminhao">Caminhão não criado.</p>
+    </div>
+
+
+
+    <div class="container">
+        <h2>Veículos na Garagem</h2>
+        <div id="listaVeiculos">
+            <p>Nenhum veículo na garagem.</p>
+        </div>
+    </div>
+
+
+    <div id="areaVeiculoSelecionado" class="container hidden">
+        <h2>Veículo Selecionado</h2>
+        <img id="imagemVeiculo" src="" alt="Imagem do Veículo" class="veiculo-imagem" style="display: none;">
+        <div id="informacoesVeiculo"></div>
+
+        <!-- Detalhes Extras da API Simulada -->
+        <div class="detalhes-extras-container">
+            <button id="btnVerDetalhesExtras" onclick="mostrarDetalhesExtrasVeiculo()" style="margin-top: 10px; display: none;">Ver Detalhes Extras (API)</button>
+            <div id="areaDetalhesExtras" style="margin-top: 10px; border: 1px solid #ccc; padding: 10px; display: none;">
+                <p>Clique no botão acima para carregar os detalhes.</p>
+            </div>
+        </div>
+
+        <!-- Barra de progresso para a velocidade -->
+        <div class="progress-bar">
+            <div class="progress" id="velocidadeProgress">
+                <span id="velocidadeTexto">0 km/h</span>
+            </div>
+        </div>
+        <!-- Status do veículo (Ligado/Desligado) -->
+        <p>Status: <span id="statusVeiculo" class="status-desligado">Desligado</span></p>
+
+        <div class="button-container">
+            <h3>Ações</h3>
+            <button onclick="interagir('ligar')">Ligar</button>
+            <button onclick="interagir('desligar')">Desligar</button>
+            <button onclick="interagir('acelerar')">Acelerar</button>
+            <button onclick="interagir('frear')">Frear</button>
+            <button onclick="interagir('buzinar')">Buzinar</button>
+            <button id="btnTurboOn" onclick="interagir('ativarTurbo')">Ativar Turbo</button>
+            <button id="btnTurboOff" onclick="interagir('desativarTurbo')">Desativar Turbo</button>
+            <button id="btnCarregar" onclick="interagir('carregar')">Carregar</button>
+            <button id="btnDescarregar" onclick="interagir('descarregar')">Descarregar</button>
+        </div>
+
+        <!-- ----- INÍCIO DA ATIVIDADE B2.P1.A8 ----- -->
+        <!-- Nova seção para exibir as dicas de manutenção vindas do backend -->
+        <div class="dicas-container">
+            <h3>Dicas Rápidas de Manutenção (via API)</h3>
+            <div id="dicasManutencao">
+                <p>Selecione um veículo para ver as dicas...</p>
+            </div>
+        </div>
+        <!-- ----- FIM DA ATIVIDADE B2.P1.A8 ----- -->
+
+
+        <div class="manutencao-container">
+            <h3>Histórico de Manutenção</h3>
+            <div id="historicoManutencao">
+                <p>Nenhuma manutenção registrada.</p>
+            </div>
+            <h3>Agendamentos Futuros</h3>
+            <div id="agendamentosFuturos">
+                <p>Nenhum agendamento futuro.</p>
+            </div>
+        </div>
+
+
+        <div class="agendamento-container">
+            <h3>Agendar Manutenção</h3>
+            <form id="formularioAgendamento" onsubmit="agendarManutencao(event)">
+                <label for="dataAgendamento">Data:</label>
+                <input type="date" id="dataAgendamento" required><br>
+                <label for="tipoAgendamento">Tipo Serviço:</label>
+                <input type="text" id="tipoAgendamento" required><br>
+                <label for="custoAgendamento">Custo (R$):</label>
+                <input type="number" id="custoAgendamento" step="0.01" min="0"><br>
+                <label for="descricaoAgendamento">Descrição:</label>
+                <textarea id="descricaoAgendamento" rows="3"></textarea><br>
+                <button type="submit">Agendar</button>
+                <button type="button" onclick="adicionarManutencaoRealizada()">Registrar Manutenção Realizada</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Planejador de Viagem com Previsão do Tempo -->
+    <div class="container">
+        <h2>Planejar Viagem - Previsão do Tempo</h2>
+        <div class="planejador-viagem" style="padding: 15px; border: 1px solid #007bff; border-radius: 5px; margin-top:10px;">
+            <label for="destino-viagem">Cidade de Destino:</label>
+            <input type="text" id="destino-viagem" placeholder="Ex: London, UK ou São Paulo, BR" style="margin-bottom: 10px; padding: 8px; width: calc(100% - 180px); display:inline-block;">
+            <button id="verificar-clima-btn" style="padding: 8px 15px;">Verificar Clima</button>
+            
+            <div id="previsao-controles" class="hidden" style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee;">
+                <div id="filtros-dias" style="margin-bottom: 10px;">
+                    <span>Mostrar previsão para:</span>
+                    <button id="btn-filter-1" class="filtro-dia-btn" data-dias="1">Hoje</button>
+                    <button id="btn-filter-3" class="filtro-dia-btn" data-dias="3">3 Dias</button>
+                    <button id="btn-filter-5" class="filtro-dia-btn active" data-dias="5">5 Dias</button>
+                </div>
+                <div id="destaques-condicoes">
+                    <span>Destaques:</span>
+                    <label style="display: inline-block; margin-left: 10px; font-weight: normal;">
+                        <input type="checkbox" id="check-destaque-chuva"> Destacar Chuva
+                    </label>
+                    <label style="display: inline-block; margin-left: 10px; font-weight: normal;">
+                        <input type="checkbox" id="check-destaque-frio"> Destacar Frio (< 10°C)
+                    </label>
+                    <label style="display: inline-block; margin-left: 10px; font-weight: normal;">
+                        <input type="checkbox" id="check-destaque-calor"> Destacar Calor (> 30°C)
+                    </label>
+                </div>
+            </div>
+
+            <div id="previsao-tempo-resultado" style="margin-top: 15px; padding: 10px; border: 1px solid #ddd; min-height: 50px; background-color: #f9f9f9;">
+                <p>Digite uma cidade e clique em "Verificar Clima".</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Elementos de áudio -->
+    <audio id="somBuzina" src="sounds/buzina.mp3" preload="auto"></audio>
+    <audio id="somAcelerar" src="sounds/acelerar.mp3" preload="auto"></audio>
+    <audio id="somFrear" src="sounds/frear.mp3" preload="auto"></audio>
+    <audio id="somLigar" src="sounds/ligar.mp3" preload="auto"></audio>
+    <audio id="somDesligar" src="sounds/desligar.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

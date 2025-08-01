@@ -1,0 +1,460 @@
+/* Reset básico e estilos gerais */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fonte mais moderna */
+  margin: 20px;
+  background-color: #f0f2f5; /* Fundo ligeiramente diferente */
+  color: #333;
+  line-height: 1.6; /* Melhor legibilidade */
+}
+
+h1, h2, h3 {
+  color: #1c1e21; /* Cor mais escura para títulos */
+  margin-top: 1.5em;
+  margin-bottom: 0.8em;
+}
+h1 {
+  text-align: center;
+  color: #0056b3; /* Azul escuro para o título principal */
+  margin-bottom: 1em;
+}
+h2 {
+  border-bottom: 2px solid #007bff; /* Linha abaixo dos H2 */
+  padding-bottom: 5px;
+}
+h3 {
+  color: #444;
+}
+
+/* Estilos para os contêineres principais */
+div.container, div.creation-section {
+  background-color: #fff;
+  padding: 25px; /* Mais padding */
+  margin-bottom: 25px;
+  border-radius: 8px; /* Bordas mais arredondadas */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+  border: 1px solid #ddd; /* Borda sutil */
+}
+
+/* Estilos para a seção de criação de veículos */
+.creation-section {
+  border-color: #e0e0e0;
+}
+
+/* Estilos para labels e inputs */
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600; /* Labels um pouco mais fortes */
+  color: #555;
+  font-size: 0.95em;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px; /* Inputs mais altos */
+  margin-bottom: 15px; /* Mais espaço abaixo */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1em;
+}
+input:focus, textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+textarea {
+  resize: vertical; /* Permitir redimensionamento vertical */
+  min-height: 70px;
+}
+
+/* Estilos gerais para botões */
+button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 18px; /* Padding ligeiramente ajustado */
+  margin-right: 8px;
+  margin-bottom: 8px; /* Espaçamento inferior para botões */
+  border: none;
+  border-radius: 5px; /* Bordas ligeiramente mais arredondadas */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, box-shadow 0.2s ease;
+  vertical-align: middle; /* Alinha melhor com outros elementos inline */
+}
+
+button:hover {
+  background-color: #0056b3;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+button:active {
+  background-color: #004085; /* Cor ao clicar */
+}
+
+/* Parágrafos de status na criação */
+.creation-section p {
+  margin-top: 10px;
+  font-style: italic;
+  color: #007bff; /* Status em azul */
+  font-size: 0.9em;
+}
+
+/* ---- ESTILOS PARA A LISTA DE VEÍCULOS ---- */
+#listaVeiculos {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #f9f9f9;
+  max-height: 250px; /* Aumenta altura máxima */
+  overflow-y: auto;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+#listaVeiculos p { /* Estilo para "Nenhum veículo..." */
+  color: #777;
+  font-style: italic;
+  text-align: center;
+  margin: 10px 0;
+}
+.veiculo-item-lista {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+  transition: background-color 0.2s ease;
+}
+.veiculo-item-lista:last-child {
+  border-bottom: none;
+}
+.veiculo-item-lista:hover {
+  background-color: #e9ecef; /* Hover mais claro */
+}
+/* Classe para o item selecionado (deve ser adicionada/removida via JS) */
+.veiculo-item-lista.selected {
+  background-color: #cfe2ff; /* Azul claro para seleção */
+  font-weight: bold;
+  color: #004085; /* Cor de texto para item selecionado */
+  border-left: 4px solid #007bff; /* Indicador visual esquerdo */
+  padding-left: 8px; /* Ajusta padding após adicionar borda */
+}
+
+/* ---- ESTILOS PARA A ÁREA DO VEÍCULO SELECIONADO ---- */
+#areaVeiculoSelecionado {
+  border-top: 3px solid #007bff; /* Destaque visual */
+}
+
+/* Imagem do veículo */
+.veiculo-imagem {
+  max-width: 250px; /* Imagem um pouco maior */
+  height: auto;
+  margin-bottom: 15px;
+  display: block; /* Garante que ocupa a própria linha */
+  margin-left: auto; /* Centraliza se o container for maior */
+  margin-right: auto;
+  border-radius: 5px;
+  border: 1px solid #eee;
+}
+
+/* Informações do veículo */
+#informacoesVeiculo {
+  border: 1px solid #eee;
+  padding: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px; /* Adiciona espaço abaixo */
+  background-color: #fdfdfd;
+  border-radius: 5px;
+}
+#informacoesVeiculo br {
+  margin-bottom: 5px; /* Pequeno espaço após cada <br> */
+}
+
+/* Status Ligado/Desligado */
+#statusVeiculo {
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 4px;
+  color: white; /* Texto branco para melhor contraste */
+}
+.status-ligado {
+  background-color: #28a745; /* Verde */
+}
+.status-desligado {
+  background-color: #dc3545; /* Vermelho */
+}
+
+/* Barra de Progresso da Velocidade */
+.progress-bar {
+  width: 100%;
+  height: 25px;
+  background-color: #e9ecef; /* Fundo mais claro */
+  border-radius: 5px;
+  margin-bottom: 15px; /* Mais espaço */
+  overflow: hidden;
+  position: relative;
+  border: 1px solid #ccc;
+}
+.progress {
+  height: 100%;
+  background-color: #007bff; /* Azul para progresso */
+  border-radius: 5px 0 0 5px; /* Arredonda só a ponta esquerda */
+  width: 0%;
+  transition: width 0.4s ease-out; /* Transição mais suave */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza texto na barra */
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  /* padding-left removido para centralizar */
+  box-sizing: border-box;
+}
+.progress span#velocidadeTexto { /* Estilo para o texto dentro da barra */
+   position: absolute; /* Posiciona sobre a barra */
+   width: 100%; /* Ocupa toda a largura */
+   text-align: center;
+   left: 0;
+   color: #333; /* Cor escura para contraste com fundo claro */
+   mix-blend-mode: difference; /* Tenta fazer o texto visível sobre a barra azul */
+   filter: invert(1) grayscale(1) contrast(9); /* Alternativa para visibilidade */
+   /* Se o texto não ficar bom, pode-se colocar fora da barra */
+}
+
+
+/* Contêiner dos botões de ação */
+.button-container {
+  margin-top: 20px; /* Espaço acima dos botões de ação */
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+.button-container h3 {
+  margin-bottom: 10px;
+}
+
+/* ---- ESTILOS PARA MANUTENÇÃO E AGENDAMENTO ---- */
+.manutencao-container,
+.agendamento-container {
+  margin-top: 30px; /* Mais espaço */
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+}
+
+.manutencao-container h3,
+.agendamento-container h3 {
+  margin-bottom: 15px; /* Espaço abaixo dos títulos da seção */
+  color: #0056b3; /* Azul escuro */
+}
+
+/* Itens de histórico e agendamento */
+.manutencao-item,
+.agendamento-item {
+  background-color: #f8f9fa; /* Fundo claro */
+  padding: 12px; /* Mais padding */
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #e9ecef; /* Borda bem clara */
+  font-size: 0.95em;
+  line-height: 1.5;
+  position: relative; /* Para possíveis ícones ou detalhes */
+}
+.agendamento-item::before { /* Adiciona um ícone de calendário (requer Font Awesome ou similar, ou usar emoji) */
+   content: "📅 "; /* Emoji como exemplo */
+   margin-right: 5px;
+}
+.manutencao-item::before { /* Adiciona um ícone de ferramenta */
+   content: "🔧 "; /* Emoji como exemplo */
+   margin-right: 5px;
+}
+
+/* Estilo para agendamentos passados (adicionar classe via JS) */
+.agendamento-item.passado {
+  color: #6c757d; /* Cinza */
+  text-decoration: line-through;
+  background-color: #e9ecef; /* Fundo ligeiramente diferente */
+}
+.agendamento-item.passado::before {
+  opacity: 0.6;
+}
+
+/* Formulário de Agendamento */
+#formularioAgendamento {
+  margin-top: 20px;
+  padding: 25px;
+  border: 1px dashed #007bff; /* Borda tracejada azul */
+  border-radius: 8px;
+  background-color: #f8f9fa;
+}
+#formularioAgendamento label {
+  display: inline-block;
+  width: 130px; /* Aumenta largura do label */
+  margin-bottom: 12px;
+  vertical-align: top; /* Melhor alinhamento com textarea */
+  font-weight: normal;
+}
+#formularioAgendamento input[type="date"],
+#formularioAgendamento input[type="text"],
+#formularioAgendamento input[type="number"],
+#formularioAgendamento textarea {
+  width: calc(100% - 150px); /* Ajusta cálculo para novo label/padding */
+  display: inline-block; /* Permite alinhar com label */
+  vertical-align: top; /* Alinha inputs com labels */
+  margin-left: 10px; /* Espaço entre label e input */
+}
+#formularioAgendamento button {
+  margin-top: 15px;
+  margin-left: 140px; /* Alinha botão com início dos inputs */
+}
+/* Espaçamento entre os botões do formulário */
+#formularioAgendamento button[type="button"] {
+  background-color: #6c757d; /* Cinza para botão secundário */
+}
+#formularioAgendamento button[type="button"]:hover {
+  background-color: #5a6268;
+}
+
+/* ---- CLASSE UTILITÁRIA ---- */
+.hidden {
+  display: none !important; /* Garante que vai esconder */
+}
+
+
+/* ---- RESPONSIVIDADE ---- */
+@media (max-width: 768px) {
+   h1 { font-size: 1.8em; }
+   h2 { font-size: 1.4em; }
+
+  div.container, div.creation-section {
+      padding: 15px;
+  }
+
+  .veiculo-imagem {
+      max-width: 200px;
+  }
+
+   #formularioAgendamento label {
+       width: 100%; /* Labels ocupam linha inteira */
+       margin-bottom: 3px;
+   }
+   #formularioAgendamento input[type="date"],
+   #formularioAgendamento input[type="text"],
+   #formularioAgendamento input[type="number"],
+   #formularioAgendamento textarea {
+       width: 100%; /* Inputs ocupam linha inteira */
+       margin-left: 0; /* Remove margem esquerda */
+       display: block; /* Garante quebra de linha */
+   }
+    #formularioAgendamento button {
+        margin-left: 0; /* Remove margem dos botões */
+        width: 100%; /* Botões ocupam largura total */
+        box-sizing: border-box;
+    }
+    #formularioAgendamento button:last-of-type {
+         margin-top: 5px; /* Espaço entre os dois botões do form */
+     }
+
+     .button-container button { /* Botões de ação */
+         width: calc(50% - 12px); /* Dois botões por linha */
+         margin-right: 8px;
+     }
+}
+
+@media (max-width: 480px) {
+  body { margin: 10px; }
+  h1 { font-size: 1.5em; }
+  h2 { font-size: 1.2em; }
+
+  button { /* Botões gerais */
+      width: 100%; /* Um botão por linha */
+      margin-right: 0;
+      margin-bottom: 10px;
+  }
+  .button-container button { /* Botões de ação */
+     width: 100%;
+     margin-right: 0;
+  }
+}
+
+/* ---- ESTILOS PARA PREVISÃO DO TEMPO DETALHADA E INTERATIVA ---- */
+
+/* Botões de filtro de dias */
+.filtro-dia-btn {
+    background-color: #6c757d;
+    padding: 6px 12px;
+    font-size: 14px;
+}
+.filtro-dia-btn.active {
+    background-color: #007bff;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+#previsao-tempo-resultado h3 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #0056b3;
+}
+
+.previsao-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os cards quebrem para a próxima linha */
+  gap: 15px; /* Espaço entre os cards */
+  justify-content: center; /* Centraliza os cards */
+}
+
+.previsao-dia-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  flex: 1 1 120px; /* Flex-grow, flex-shrink, flex-basis */
+  min-width: 120px; /* Largura mínima para cada card */
+  max-width: 150px; /* Largura máxima */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.previsao-dia-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.previsao-dia-card h4 {
+  margin: 0 0 5px 0;
+  font-size: 0.95em;
+  color: #333;
+  white-space: nowrap; /* Evita que o nome do dia quebre a linha */
+}
+
+.previsao-dia-card img {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto;
+}
+
+.previsao-dia-card .previsao-descricao {
+  font-size: 0.9em;
+  color: #555;
+  margin: 5px 0;
+  height: 3em; /* Garante altura consistente para a descrição */
+}
+
+.previsao-dia-card .previsao-temp {
+  font-size: 0.9em;
+  color: #004085;
+  line-height: 1.4;
+}
+
+/* Classes de destaque para os cards */
+.previsao-dia-card.dia-chuvoso {
+    background-color: #cfe2ff; /* Azul claro */
+    border-color: #5b9bd5;
+}
+.previsao-dia-card.temp-baixa {
+    background-color: #e2f3f5; /* Ciano claro */
+    border-color: #66d9e8;
+}
+.previsao-dia-card.temp-alta {
+    background-color: #fff3cd; /* Amarelo claro */
+    border-color: #ffc107;
+}

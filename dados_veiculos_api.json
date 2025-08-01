@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ID_DO_SEU_CARRO_BASE_AQUI",
+    "valorFIPE": "R$ 65.000,00",
+    "recallPendente": "Nenhum recall pendente.",
+    "ultimaRevisaoAPI": "10/02/2024 - Concessionária Local",
+    "dicaManutencao": "Verificar alinhamento e balanceamento a cada 10.000 km."
+  },
+  {
+    "id": "ID_DO_SEU_CARRO_ESPORTIVO_AQUI",
+    "valorFIPE": "R$ 150.000,00",
+    "recallPendente": "Recall para atualização do software de injeção (MAI/2024).",
+    "ultimaRevisaoAPI": "20/01/2024 - Oficina Performance Plus",
+    "dicaManutencao": "Utilizar somente gasolina premium para melhor desempenho do turbo."
+  },
+  {
+    "id": "ID_DO_SEU_CAMINHAO_AQUI",
+    "valorFIPE": "R$ 320.000,00",
+    "recallPendente": "Nenhum.",
+    "ultimaRevisaoAPI": "05/03/2024 - Posto de Serviços Rodoviários",
+    "dicaManutencao": "Inspecionar freios e pneus diariamente antes de viagens longas."
+  },
+  {
+    "id": "outro_id_exemplo_123",
+    "valorFIPE": "R$ 40.000,00",
+    "recallPendente": "Sistema de airbag.",
+    "ultimaRevisaoAPI": "N/A",
+    "dicaManutencao": "Checar água do radiador."
+  }
+]
