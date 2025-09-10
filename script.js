@@ -741,3 +741,132 @@ async function carregarVeiculos() {
 
 // Chama a função para carregar os veículos assim que a página é carregada
 document.addEventListener('DOMContentLoaded', carregarVeiculos);
+
+
+async function buscarVeiculos() {
+    // ... (seu fetch existente)
+
+    const listaVeiculos = document.getElementById('lista-veiculos');
+    listaVeiculos.innerHTML = ''; // Limpa a lista antes de adicionar os novos itens
+
+    veiculos.forEach(veiculo => {
+        const itemVeiculo = document.createElement('li');
+        // ATUALIZAÇÃO AQUI: Adicione os botões com o atributo data-id
+        itemVeiculo.innerHTML = `
+            <strong>${veiculo.proprietario}</strong> - ${veiculo.modelo} (${veiculo.ano})
+            <p>Placa: ${veiculo.placa}, Cor: ${veiculo.cor}</p>
+            <div>
+                <button class="btn-editar" data-id="${veiculo._id}">Editar</button>
+                <button class="btn-excluir" data-id="${veiculo._id}">Excluir</button>
+            </div>
+        `;
+        listaVeiculos.appendChild(itemVeiculo);
+    });
+}
+
+
+const listaVeiculos = document.getElementById('lista-veiculos');
+const modalEdicao = document.getElementById('modal-edicao');
+const formEdicao = document.getElementById('form-edicao');
+const closeButton = document.querySelector('.close-button');
+
+// Função para fechar o modal
+const fecharModal = () => {
+    modalEdicao.style.display = 'none';
+}
+
+closeButton.onclick = fecharModal;
+window.onclick = function(event) {
+    if (event.target == modalEdicao) {
+        fecharModal();
+    }
+}
+
+// Ouvinte de eventos na lista para os botões de editar e excluir
+listaVeiculos.addEventListener('click', async (event) => {
+    const target = event.target;
+    const id = target.dataset.id;
+
+    // --- LÓGICA DE EXCLUSÃO ---
+    if (target.classList.contains('btn-excluir')) {
+        // Pede confirmação ao usuário
+        if (confirm('Tem certeza que deseja excluir este veículo?')) {
+            try {
+                const response = await fetch(`/api/veiculos/${id}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    alert('Veículo excluído com sucesso!');
+                    buscarVeiculos(); // Atualiza a lista na tela
+                } else {
+                    const erro = await response.json();
+                    alert(`Erro ao excluir veículo: ${erro.message}`);
+                }
+            } catch (error) {
+                console.error('Erro de rede:', error);
+                alert('Falha na comunicação com o servidor.');
+            }
+        }
+    }
+
+    // --- LÓGICA DE EDIÇÃO (ABRIR O MODAL) ---
+    if (target.classList.contains('btn-editar')) {
+        // 1. Busca os dados atuais do veículo para preencher o formulário
+        // (Isso garante que estamos editando os dados mais recentes)
+        const response = await fetch(`/api/veiculos/${id}`);
+        if (!response.ok) {
+            alert('Não foi possível carregar os dados do veículo para edição.');
+            return;
+        }
+        const veiculo = await response.json();
+
+        // 2. Preenche o formulário do modal com os dados
+        document.getElementById('edit-id').value = veiculo._id;
+        document.getElementById('edit-proprietario').value = veiculo.proprietario;
+        document.getElementById('edit-placa').value = veiculo.placa;
+        document.getElementById('edit-modelo').value = veiculo.modelo;
+        document.getElementById('edit-cor').value = veiculo.cor;
+        document.getElementById('edit-ano').value = veiculo.ano;
+
+        // 3. Mostra o modal
+        modalEdicao.style.display = 'block';
+    }
+});
+
+
+// Ouvinte de evento para o envio do formulário de edição
+formEdicao.addEventListener('submit', async (event) => {
+    event.preventDefault(); // Impede o recarregamento da página
+
+    const id = document.getElementById('edit-id').value;
+    const dadosAtualizados = {
+        proprietario: document.getElementById('edit-proprietario').value,
+        placa: document.getElementById('edit-placa').value,
+        modelo: document.getElementById('edit-modelo').value,
+        cor: document.getElementById('edit-cor').value,
+        ano: document.getElementById('edit-ano').value,
+    };
+
+    try {
+        const response = await fetch(`/api/veiculos/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(dadosAtualizados),
+        });
+
+        if (response.ok) {
+            alert('Veículo atualizado com sucesso!');
+            fecharModal();      // Fecha o modal
+            buscarVeiculos(); // Atualiza a lista na tela
+        } else {
+            const erro = await response.json();
+            alert(`Erro ao atualizar veículo: ${erro.message}`);
+        }
+    } catch (error) {
+        console.error('Erro de rede:', error);
+        alert('Falha na comunicação com o servidor.');
+    }
+});

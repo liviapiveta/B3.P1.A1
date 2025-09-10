@@ -177,9 +177,6 @@ app.post('/api/veiculos', async (req, res) => {
     }
 });
 
-// Arquivo: server.js
-
-// ... (logo após a rota POST que você acabou de adicionar)
 
 // ROTA PARA BUSCAR TODOS OS VEÍCULOS (READ)
 app.get('/api/veiculos', async (req, res) => {
@@ -197,3 +194,59 @@ app.get('/api/veiculos', async (req, res) => {
         res.status(500).json({ message: 'Erro interno ao buscar veículos.' });
     }
 });
+
+
+// ROTA PARA ATUALIZAR UM VEÍCULO (UPDATE - PUT)
+// :id é um "route parameter", ou seja, uma parte variável da URL
+app.put('/api/veiculos/:id', async (req, res) => {
+    try {
+        const veiculoId = req.params.id; // Pega o ID da URL
+        const dadosAtualizados = req.body; // Pega os novos dados do corpo da requisição
+
+        // Encontra o veículo pelo ID e o atualiza com os novos dados
+        // { new: true } garante que o documento retornado seja a versão atualizada
+        // { runValidators: true } garante que as validações do Schema sejam aplicadas na atualização
+        const veiculoAtualizado = await Veiculo.findByIdAndUpdate(veiculoId, dadosAtualizados, { new: true, runValidators: true });
+
+        if (!veiculoAtualizado) {
+            // Se o veículo com o ID fornecido não for encontrado
+            return res.status(404).json({ message: "Veículo não encontrado." });
+        }
+
+        // Retorna o veículo atualizado com sucesso
+        res.status(200).json(veiculoAtualizado);
+
+    } catch (error) {
+        console.error("Erro ao atualizar veículo:", error);
+        // Verifica se o erro é de validação do Mongoose
+        if (error.name === 'ValidationError') {
+            return res.status(400).json({ message: "Dados inválidos", errors: error.errors });
+        }
+        res.status(500).json({ message: "Erro interno do servidor ao tentar atualizar o veículo." });
+    }
+});
+
+
+// ROTA PARA DELETAR UM VEÍCULO (DELETE)
+app.delete('/api/veiculos/:id', async (req, res) => {
+    try {
+        const veiculoId = req.params.id; // Pega o ID da URL
+
+        // Encontra o veículo pelo ID e o remove do banco de dados
+        const veiculoDeletado = await Veiculo.findByIdAndDelete(veiculoId);
+
+        if (!veiculoDeletado) {
+            // Se o veículo com o ID fornecido não for encontrado
+            return res.status(404).json({ message: "Veículo não encontrado." });
+        }
+
+        // Retorna uma mensagem de sucesso
+        res.status(200).json({ message: "Veículo deletado com sucesso." });
+
+    } catch (error) {
+        console.error("Erro ao deletar veículo:", error);
+        res.status(500).json({ message: "Erro interno do servidor ao tentar deletar o veículo." });
+    }
+});
+
+// ... (seu código existente de app.listen)

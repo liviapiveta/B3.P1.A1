@@ -168,6 +168,39 @@
             </div>
         </div>
     </div>
+    
+
+<!-- Modal de Edição (inicialmente escondido) -->
+<div id="modal-edicao" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Editar Veículo</h2>
+        <form id="form-edicao">
+            <input type="hidden" id="edit-id"> <!-- Campo para guardar o ID -->
+            
+            <label for="edit-proprietario">Proprietário:</label>
+            <input type="text" id="edit-proprietario" required>
+            
+            <label for="edit-placa">Placa:</label>
+            <input type="text" id="edit-placa" required>
+            
+            <label for="edit-modelo">Modelo:</label>
+            <input type="text" id="edit-modelo" required>
+            
+            <label for="edit-cor">Cor:</label>
+            <input type="text" id="edit-cor" required>
+            
+            <label for="edit-ano">Ano:</label>
+            <input type="number" id="edit-ano" required>
+            
+            <button type="submit">Salvar Alterações</button>
+        </form>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
 
     <!-- Elementos de áudio -->
     <audio id="somBuzina" src="sounds/buzina.mp3" preload="auto"></audio>
