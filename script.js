@@ -2,7 +2,7 @@
 
 // ----- INÍCIO DA ATIVIDADE B2.P1.A8 -----
 // Boa prática: definir a URL do backend em um só lugar
-const backendUrl = 'http://localhost:3001';
+const backendUrl = 'http://https://b3-p1-a1.vercel.app';
 // ----- FIM DA ATIVIDADE B2.P1.A8 -----
 
 
